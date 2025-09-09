@@ -1,0 +1,17 @@
+# Prometheus Adapter mapeando rps a partir de http_requests_total (via Pushgateway)
+prometheus:
+  url: http://monitoring-kube-prometheus-prometheus.monitoring.svc
+  port: 9090
+
+rules:
+  default: false
+  custom:
+    - seriesQuery: '{__name__="http_requests_total",service!=""}'
+      resources:
+        overrides:
+          namespace: { resource: "namespace" }
+          service:   { resource: "service" }
+      name:
+        as: "rps"
+      # Converte counter em taxa por segundo, agregando por (namespace, service)
+      metricsQuery: 'sum(rate(http_requests_total{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)'
