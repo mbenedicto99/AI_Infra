@@ -13,43 +13,68 @@
 ## 🏗️ Arquitetura (alto nível)
 
 ```mermaid
-flowchart LR
-  subgraph Runtime & Telemetry
-    A[Aplicações em EKS/EC2/Fargate]-->B[OpenTelemetry Collector (ADOT)]
-    B-- Prometheus Remote Write -->C[Amazon Managed Prometheus (AMP)]
-    B-- Traces -->D[AWS X-Ray]
-    B-- EMF Metrics -->E[Amazon CloudWatch]
-    A-- Logs -->F[CloudWatch Logs]
+---
+config:
+  theme: redux
+---
+
+flowchart TB
+
+  subgraph RT[Runtime and Telemetry]
+    U[Users] --> LB[ALB NLB]
+    LB --> APP[Apps on EKS EC2 Fargate]
+    APP -->|OTel SDK| COL[ADOT Collector]
+    COL -- metrics --> AMP[Amazon Managed Prometheus]
+    COL -- traces --> XR[AWS XRay]
+    COL -- EMF metrics --> CWM[CloudWatch Metrics]
+    APP -- logs --> CWL[CloudWatch Logs]
   end
 
-  subgraph Data Lake & Analytics
-    E-- Metric Streams -->G[Kinesis Firehose]
-    F-- Subscription ->G
-    G-->H[(Amazon S3 Data Lake)]
-    H<-->I[AWS Glue Data Catalog]
-    I-->J[Athena/EMR/Spark]
+  subgraph DL[Data Lake and Analytics]
+    CWM -- Metric Streams --> FH[Kinesis Firehose]
+    CWL -- Subscription --> FH
+    FH --> S3[Amazon S3 Data Lake]
+    S3 --> GL[AWS Glue Catalog]
+    GL --> ATH[Athena or EMR Spark]
   end
 
-  subgraph MLOps & Forecast
-    J-->K[SageMaker Processing/Training]
-    K-->L[Model Registry]
-    L-->M[SageMaker Endpoint (Online)]
-    L-->N[SageMaker Batch Transform]
-    O[EventBridge Scheduler]-->K
-    O-->P[Lambda - Orquestração de Ações]
+  subgraph ML[MLOps and Forecast on SageMaker]
+    ATH --> P1[Processing Features]
+    P1 --> T1[Training TFT DeepAR NBEATS Prophet]
+    T1 --> EV[Evaluation]
+    EV --> REG[Model Registry]
+    REG --> EP[Endpoint Online]
+    REG --> BT[Batch Transform]
+    T1 --> MON[Model Monitor]
   end
 
-  subgraph Capacity Actions
-    M-- Previsão (curto prazo) -->P
-    N-- Previsão (janela diária) -->P
-    P-->Q[AWS Auto Scaling (ASG/ECS)]
-    P-->R[EKS HPA/VPA via Custom Metrics]
-    P-->S[Reserved/Spot Planner (FinOps)]
+  subgraph ORQ[Orchestration and Context]
+    EVS[EventBridge Schedules] --> P1
+    EVS --> BT
+    EVS --> L1[Lambda Capacity Planner]
+    CE[Change Events] --> EVS
+    CAL[BR Holidays Calendar] --> P1
   end
 
-  C-->T[Grafana (AMG)]
-  E-->T
-  H-->T
+  subgraph ACT[Capacity and FinOps]
+    EP -- short term forecast --> L1
+    BT -- daily weekly forecast --> L1
+    L1 --> ASG[AWS Auto Scaling]
+    L1 --> HPA[EKS HPA or VPA]
+    L1 --> FIN[FinOps RI Spot]
+  end
+
+  subgraph OBS[Observability]
+    AMP --> AMG[Amazon Managed Grafana]
+    CWM --> AMG
+    S3 --> AMG
+  end
+
+  RT --> DL
+  DL --> ML
+  ML --> ACT
+  RT --> OBS
+  DL --> OBS
 ```
 
 **Notas-chave**

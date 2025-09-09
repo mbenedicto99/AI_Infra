@@ -1,12 +1,17 @@
-# conferir o remoto atual
-git remote -v
+set -euo pipefail
+REPO="AI_Infra"; OWNER="mbenedicto99"
+REMOTE="git@github.com:${OWNER}/${REPO}.git"
 
-# corrigir a URL (remova a barra final e confirme o owner)
-#git remote set-url origin https://github.com/mbenedicto99/AI_Infra.git
-# se preferir SSH (evita PAT):
-git remote set-url origin git@github.com:mbenedicto99/AI_Infra.git
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || git init
+git checkout -B main
+if ! git rev-parse HEAD >/dev/null 2>&1; then
+  [ -f README.md ] || echo "# ${REPO}" > README.md
+  git add -A && git commit -m "init"
+fi
+git remote get-url origin >/dev/null 2>&1 || git remote add origin "$REMOTE"
+git remote set-url origin "$REMOTE"
 
-git add -A
-git commit -m "initial"  # se ainda não tiver commit
-git branch -M main
+gh auth status || gh auth login -s repo -p ssh
+gh repo view "${OWNER}/${REPO}" >/dev/null 2>&1 || gh repo create "${OWNER}/${REPO}" --private --confirm
 git push -u origin main
+
