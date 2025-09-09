@@ -1,0 +1,238 @@
+%PDF-1.4
+%ÿÿÿÿ
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 2575 >>
+stream
+BT
+/F1 16 Tf
+1 0 0 1 50 792 Tm
+20 TL
+(TERMO DE ABERTURA DO PROJETO \(TAP\)) Tj
+ET
+BT
+/F1 11 Tf
+1 0 0 1 50 752 Tm
+14 TL
+( ) Tj
+T*
+(Título do Projeto:) Tj
+T*
+(Previsão de Demanda e Planejamento de Capacidade com Observabilidade & FinOps \(AWS/EKS + SageMaker\)) Tj
+T*
+( ) Tj
+T*
+(Data:) Tj
+T*
+(09/09/2025) Tj
+T*
+( ) Tj
+T*
+(Patrocinadores e Instituições Envolvidas:) Tj
+T*
+(- Escola Politécnica da USP ? Departamento de Petróleo e Minas \(parceiro acadêmico\)) Tj
+T*
+(- Canopus ? AIpilot \(proponente/execução\)) Tj
+T*
+( ) Tj
+T*
+(Gestão do Projeto:) Tj
+T*
+(- Sponsor Executivo: \(nome\)) Tj
+T*
+(- Gerente do Projeto \(GP\): \(nome\)) Tj
+T*
+(- Líder Técnico/Arquiteto: \(nome\)) Tj
+T*
+( ) Tj
+T*
+(1\) Justificativa) Tj
+T*
+(- Necessidade de prever carga \(RPS/filas\) e ajustar capacidade \(ASG/HPA\) com eficiência de custos.) Tj
+T*
+(- Apoiar pesquisas e casos de uso em energia, petróleo e mineração com infraestrutura elástica e) Tj
+T*
+(observável.) Tj
+T*
+(- Redução de riscos operacionais \(picos/sobrecarga\) e otimização FinOps \(custo x desempenho\).) Tj
+T*
+( ) Tj
+T*
+(2\) Objetivos) Tj
+T*
+(Geral: Provar em POC a cadeia E2E: dados ? previsão ? decisão ? ação de capacidade, com) Tj
+T*
+(observabilidade e governança.) Tj
+T*
+(Específicos:) Tj
+T*
+(- Coletar telemetria \(OpenTelemetry/Prometheus/CloudWatch ? S3/Athena\).) Tj
+T*
+(- Treinar/servir modelos \(TFT/DeepAR/Prophet/N-BEATS no SageMaker\) e publicar p50/p90.) Tj
+T*
+(- Automatizar decisões \(Lambda/EventBridge\) e escalar via ASG/HPA \(Prometheus/CloudWatch Adapter\).) Tj
+T*
+(- Medir SLOs de previsão \(WAPE/CRPS\) e SLOs operacionais \(P95 latência, erro 5xx\).) Tj
+T*
+(- Relacionar previsão ? capacidade ? custo \(FinOps\).) Tj
+T*
+( ) Tj
+T*
+(3\) Escopo \(Entregas\)) Tj
+T*
+(- Infra mínima como código \(Terraform/Helm/K8s Manifests\).) Tj
+T*
+(- Pipelines de dados e modelos com monitoramento de drift/qualidade.) Tj
+T*
+(- Dashboards \(Grafana/AMG\) e alarmes \(CloudWatch/Alertmanager\).) Tj
+T*
+(- Catálogo de decisões \(Athena/Glue\): previsão ? ação ? efeito.) Tj
+T*
+(- Documentação técnica + guia de operação.) Tj
+T*
+( ) Tj
+T*
+(Fora do Escopo \(nesta fase\):) Tj
+T*
+(- Alta disponibilidade multi-região produtiva.) Tj
+T*
+(- Integrações com sistemas de faturamento/ERP.) Tj
+T*
+( ) Tj
+T*
+(4\) Premissas) Tj
+T*
+(- Acesso a conta AWS de pesquisa e cluster EKS de teste.) Tj
+T*
+(- Bases de métricas sintéticas + amostras reais anonimizadas.) Tj
+T*
+(- Conformidade com LGPD, políticas de segurança e ética acadêmica.) Tj
+T*
+( ) Tj
+T*
+(5\) Restrições) Tj
+T*
+(- Limites de custo/uso \(créditos de pesquisa\).) Tj
+T*
+ETendstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]
+   /Resources << /Font << /F1 3 0 R >> >>
+   /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 2169 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 50 792 Tm
+14 TL
+(- Janelas de mudança controladas.) Tj
+T*
+(- Dados sensíveis somente anonimizados.) Tj
+T*
+( ) Tj
+T*
+(6\) Riscos Iniciais e Respostas) Tj
+T*
+(- Alta cardinalidade ? regras de rotulagem, amostragem e retenção.) Tj
+T*
+(- Viés por incidentes ? limpeza e exclusão de outliers/blackouts.) Tj
+T*
+(- Feedback loop \(autoscaling altera série\) ? A/B de políticas e hold-out.) Tj
+T*
+(- Custo imprevisível ? budgets/alerts FinOps e limites por serviço.) Tj
+T*
+( ) Tj
+T*
+(7\) Cronograma Macro \(8 semanas\)) Tj
+T*
+(- S1?S2: Setup de observabilidade \(Prometheus/Grafana/Metric Streams\), dados em S3/Athena.) Tj
+T*
+(- S3?S4: Modelagem e treino; baseline de métricas \(WAPE/CRPS\).) Tj
+T*
+(- S5?S6: Serving \(endpoint\), orquestração \(EventBridge/Lambda\) e HPA/ASG.) Tj
+T*
+(- S7: Dashboards, alarmes, catálogo de decisões, testes E2E.) Tj
+T*
+(- S8: Revisão, relatório técnico e handover.) Tj
+T*
+( ) Tj
+T*
+(8\) Orçamento \(alto nível\)) Tj
+T*
+(- Compute \(SageMaker/EKS\), armazenamento \(S3\), observabilidade \(AMP/CloudWatch\), rede.) Tj
+T*
+(- Limite mensal: \(definir\) com budget/alertas configurados.) Tj
+T*
+( ) Tj
+T*
+(9\) Critérios de Sucesso) Tj
+T*
+(- WAPE ? 15% no horizonte alvo.) Tj
+T*
+(- Redução de incidentes por saturação ? 30% em cenários de teste.) Tj
+T*
+(- Economia FinOps estimada por direito-dimensionamento ? 15%.) Tj
+T*
+(- Dashboards e alarmes operacionais ativos; playbooks aprovados.) Tj
+T*
+( ) Tj
+T*
+(10\) Governança & Comunicação) Tj
+T*
+(- Ritos: semanal \(status\), quinzenal \(risco/FinOps\), mensal \(steering\).) Tj
+T*
+(- Repositórios: Git \(infra, dados, modelos, docs\).) Tj
+T*
+(- Aprovação de mudanças: via PR + revisão técnica + GP.) Tj
+T*
+( ) Tj
+T*
+(Aprovações) Tj
+T*
+(- Sponsor ? Escola Politécnica da USP ? Departamento de Petróleo e Minas: ___________________ Data:) Tj
+T*
+(___/___/_____) Tj
+T*
+(- Sponsor ? Canopus ? AIpilot: ___________________________________________ Data: ___/___/_____) Tj
+T*
+(- Gerente do Projeto: _____________________________________________________ Data: ___/___/_____) Tj
+T*
+(- Líder Técnico: _________________________________________________________ Data: ___/___/_____) Tj
+T*
+ETendstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]
+   /Resources << /Font << /F1 3 0 R >> >>
+   /Contents 6 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 2 /Kids [ 5 0 R 7 0 R ] >>
+endobj
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000119 00000 n 
+0000002694 00000 n 
+0000002711 00000 n 
+0000002843 00000 n 
+0000002877 00000 n 
+0000005046 00000 n 
+0000005063 00000 n 
+0000005195 00000 n 
+0000005260 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+5309
+%%EOF
